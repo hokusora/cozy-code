@@ -1,0 +1,6 @@
+{
+  "name": "Canvas Notebook",
+  "description": "A lightweight Google Colab-style web notebook featuring Gemini Dark Mode, VS Code Dark Modern editing, lazy Web Worker Python & SQL runtimes, KaTeX math, and zero-auth cross-device Workspace Key sync.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

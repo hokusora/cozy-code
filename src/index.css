@@ -1,0 +1,270 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg-app: #131314;
+  --bg-surface: #1E1F20;
+  --bg-hover: #282A2C;
+  --border-hairline: #333537;
+  --text-primary: #E3E3E3;
+  --text-secondary: #C4C7C5;
+  --accent-primary: #A8C7FA;
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  letter-spacing: 0.005em;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-code {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom subtle dark scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333537;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #474A4D;
+}
+
+/* Animated Gemini gradient running border (#4285F4 -> #9B72CB -> #D96570) */
+@keyframes gemini-border-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gemini-running-ring {
+  position: relative;
+  border-color: transparent !important;
+}
+
+.gemini-running-ring::before {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(90deg, #4285F4, #9B72CB, #D96570, #4285F4);
+  background-size: 240% 240%;
+  animation: gemini-border-flow 2.4s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gemini-running-ring::before {
+    animation: none;
+    background-size: 100% 100%;
+  }
+}
+
+/* CodeMirror 6 VS Code Dark Modern integration */
+.canvas-cm-wrapper .cm-editor {
+  background-color: #1E1F20 !important;
+  font-family: var(--font-mono) !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  outline: none !important;
+}
+
+.canvas-cm-wrapper .cm-gutters {
+  background-color: #1E1F20 !important;
+  border-right: 1px solid #2A2C2E !important;
+  color: #6B6F73 !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.canvas-cm-wrapper .cm-activeLineGutter,
+.canvas-cm-wrapper .cm-activeLine {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.canvas-cm-wrapper .cm-scroller {
+  overflow-x: auto;
+  padding: 8px 0;
+}
+
+.canvas-cm-wrapper .cm-content {
+  caret-color: #A8C7FA !important;
+  padding: 2px 0;
+}
+
+.canvas-cm-wrapper .cm-focused {
+  outline: none !important;
+}
+
+/* Markdown + KaTeX typography inside TextBlock */
+.notebook-prose {
+  color: #E3E3E3;
+  font-size: 15px;
+  line-height: 1.68;
+  max-width: 72ch;
+}
+
+.notebook-prose h1 {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  color: #F3F4F6;
+  text-wrap: balance;
+}
+
+.notebook-prose h2 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 1.1rem;
+  margin-bottom: 0.55rem;
+  color: #ECEEEF;
+  text-wrap: balance;
+}
+
+.notebook-prose h3 {
+  font-family: var(--font-display);
+  font-size: 1.075rem;
+  font-weight: 600;
+  margin-top: 0.9rem;
+  margin-bottom: 0.45rem;
+  color: #E3E3E3;
+}
+
+.notebook-prose p {
+  margin-bottom: 0.75rem;
+}
+
+.notebook-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.notebook-prose ul,
+.notebook-prose ol {
+  margin: 0.5rem 0 0.75rem 1.4rem;
+}
+
+.notebook-prose ul {
+  list-style-type: disc;
+}
+
+.notebook-prose ol {
+  list-style-type: decimal;
+}
+
+.notebook-prose li {
+  margin-bottom: 0.25rem;
+}
+
+.notebook-prose a {
+  color: #A8C7FA;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.notebook-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background-color: #282A2C;
+  padding: 0.12rem 0.38rem;
+  border-radius: 4px;
+  color: #E3E3E3;
+}
+
+.notebook-prose pre {
+  background-color: #131314;
+  border: 1px solid #333537;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  margin: 0.75rem 0;
+}
+
+.notebook-prose pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.notebook-prose blockquote {
+  background-color: #282A2C;
+  border: 1px solid #333537;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+  color: #C4C7C5;
+}
+
+.notebook-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0;
+  font-size: 0.875rem;
+}
+
+.notebook-prose th,
+.notebook-prose td {
+  border: 1px solid #333537;
+  padding: 0.45rem 0.75rem;
+  text-align: left;
+}
+
+.notebook-prose th {
+  background-color: #282A2C;
+  font-weight: 600;
+}
+
+.notebook-prose hr {
+  border: 0;
+  border-top: 1px solid #333537;
+  margin: 1.1rem 0;
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.35rem 0;
+}
